@@ -22,9 +22,24 @@ version = properties("pluginVersion")
 repositories {
     mavenCentral()
 }
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+}
+
+configurations {
+    all {
+        exclude( group="org.junit.vintage:junit-vintage-engine", module="junit-vintage-engine")
+    }
+}
 
 // Set the JVM language level used to compile sources and generate files - Java 11 is required since 2020.3
 kotlin {
+    dependencies {
+        implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4")
+        implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
+        implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
+//        testCompile ('org.junit.jupiter:junit-jupiter:5.6.0')
+    }
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(11))
     }
@@ -93,6 +108,7 @@ tasks {
         systemProperty("jb.privacy.policy.text", "<!--999.999-->")
         systemProperty("jb.consents.confirmation.enabled", "false")
     }
+
 
     signPlugin {
         certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
