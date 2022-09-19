@@ -1,2 +1,1 @@
-package PACKAGE_NAME;public class HighlightTokenType {
-}
+public enum HighlightTokenType {COMMENT, KEYWORD, METHOD_KEYWORD}

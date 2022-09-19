@@ -7,6 +7,14 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="HighlightTokenConfiguration"/>
+        <applicationService serviceImplementation="KeywordHighlighter"/>
+        <colorSettingsPage implementation="CommentHighlighterColorSettingsPage"/>
+        <annotator language=""
+                   implementationClass="GenericCommentHighlighterAnnotator"/>
+
+        <additionalTextAttributes scheme="Default" file="colorSchemes/highlightTokens.xml"/>
+        <additionalTextAttributes scheme="Darcula" file="colorSchemes/highlightTokens.xml"/>
     </extensions>
 
     <actions>
@@ -14,6 +22,13 @@
             <add-to-group group-id="ToolsMenu" anchor="first"></add-to-group>
             <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"></add-to-group>
+        </action>
+        <action
+                id="EditorBasics.EditorIllustrationAction"
+                class="CodeChangeListener"
+                text="Editor Replace Text"
+                description="Replaces selected text with 'Replacement'.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
     </actions>
 </idea-plugin>
