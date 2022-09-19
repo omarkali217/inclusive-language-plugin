@@ -1,0 +1,57 @@
+ [
+ {
+    "term": "Blacklist",
+    "recommendation(s)": ["Denylist", "Blocklist", "Unapprovedlist"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Coworker",
+    "recommendation(s)": ["Colleague", "Contractor"],
+    "reason": "The preferred term for the fine folks who work at Amex is \"Colleague\" (and/or \"Contractor\", as appropriate).\n"
+  },
+  {
+    "term": "Coworkers",
+    "recommendation(s)": ["Colleagues", "Contractors"],
+    "reason": "The preferred term for the fine folks who work at Amex is \"Colleague\" (and/or \"Contractor\", as appropriate).\n"
+  },
+  {
+    "term": "Grandfathered",
+    "recommendation(s)": ["Exempt", "Legacy", "Legacy status"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Grooming",
+    "recommendation(s)": "Refinement",
+    "reason": "The official \"Scrum Guide\" changed the name of Backlog \"Grooming\" to Backlog \"Refinement\"."
+  },
+  {
+    "term": "JAPA",
+    "recommendation(s)": "APAC",
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Master",
+    "recommendation(s)": ["Primary", "Main", "Host", "Leader"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Slave",
+    "recommendation(s)": ["Secondary", "Replica", "Secondary", "Client", "Follower"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Sanity Check",
+    "recommendation(s)": ["Quick check", "Initial check", "Confidence check", "Calibration check"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Scrum Master",
+    "recommendation(s)": "Agile Champion",
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  },
+  {
+    "term": "Whitelist",
+    "recommendation(s)": ["Allowlist", "Permitlist", "Approvedlist"],
+    "reason": "Related to and/or conceived from divisive racial history and could be interpreted as offensive by disenfranchised groups."
+  }
+]
