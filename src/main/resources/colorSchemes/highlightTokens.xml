@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<list>
+    <option name="*_COMMENT">
+        <value>
+            <option name="FOREGROUND" value="98C379"/>
+        </value>
+    </option>
+    <option name="?_COMMENT">
+        <value>
+            <option name="FOREGROUND" value="5394EC"/>
+        </value>
+    </option>
+    <option name="!_COMMENT">
+        <value>
+            <option name="FOREGROUND" value="CC666E"/>
+        </value>
+    </option>
+    <option name="public_KEYWORD">
+        <value>
+            <option name="FOREGROUND" value="FABD2F"/>
+            <!--            CCA266 -->
+        </value>
+    </option>
+</list>
