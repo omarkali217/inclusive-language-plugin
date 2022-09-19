@@ -7,12 +7,13 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.omarkali217.inclusivelanguageplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.omarkali217.inclusivelanguageplugin.services.MyProjectService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.omarkali217.inclusivelanguageplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="helloworld" class="HelloWorldAction" text="Hello World" >
+            <add-to-group group-id="ToolsMenu" anchor="first"></add-to-group>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"></add-to-group>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"></add-to-group>
+        </action>
+    </actions>
 </idea-plugin>
