@@ -19,6 +19,16 @@ final public class CommentHighlighter implements TokenHighlighter {
     private static final String DOC_COMMENT_START_LINE = "/**";
     private static final List<Character> START_LINE_CHARACTERS_LIST = Arrays.asList('/', '<', '-', ' ', '#', '*', '!', '\t', '{');
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    private String reason;
+
     @Override
     public List<Pair<TextRange, TextAttributesKey>> getHighlights(String text, int startOffset) {
 
@@ -26,8 +36,15 @@ final public class CommentHighlighter implements TokenHighlighter {
 
         Collection<QuarantineItem> quarantineItems = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
         Collection<String> supportedTokens = quarantineItems.stream().map(n -> n.getTerm()).collect(Collectors.toList());
+        Collection<String> reasonToChange = quarantineItems.stream().map(n -> n.getReason()).collect(Collectors.toList());
+        Map<String, String> map = new HashMap<>();
+        int i = 0;
+        for (String token : supportedTokens) {
+            map.put(token, String.valueOf(reasonToChange.toArray()[i]));
+            i++;
+        }
 
-        String termSearchRegex = ".*(?:" + String.join("|", supportedTokens) + ").*";
+        String termSearchRegex = String.join("|", supportedTokens);
         Pattern pattern = Pattern.compile(termSearchRegex);
         Matcher matcher = pattern.matcher(text);
 
@@ -40,6 +57,9 @@ final public class CommentHighlighter implements TokenHighlighter {
         final int lastCharPosition = text.length() - 1;
 
         if (matcher.find()) {
+//            String inclusiveWord = text.split(" ")[0];
+            String inclusiveWord = matcher.group(0);
+            setReason(map.get(inclusiveWord));
             currentLineHighlightAttribute = TextAttributesKey.createTextAttributesKey("ALL_HIGHLIGHT");
             //currentLineHighlightAttribute = getHighlightTextAttribute(matcher.group(0), supportedTokens);
             TextRange textRange = new TextRange(currentLineStartIndex, startOffset + lastCharPosition + 1);

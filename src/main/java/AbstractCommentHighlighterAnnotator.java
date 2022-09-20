@@ -1,3 +1,4 @@
+import Objects.QuarantineItem;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
@@ -23,7 +24,7 @@ public abstract class AbstractCommentHighlighterAnnotator implements Annotator {
             List<Pair<TextRange, TextAttributesKey>> highlights = commentHighlighter.getHighlights(comment, startOffset);
 
             for (Pair<TextRange, TextAttributesKey> highlight : highlights) {
-                holder.newAnnotation(HighlightSeverity.WARNING, "non-inclusive language detected")
+                holder.newAnnotation(HighlightSeverity.WARNING, "non-inclusive language detected: " + commentHighlighter.getReason())
                         .range(highlight.first)
                         .textAttributes(highlight.second)
                         .create();
