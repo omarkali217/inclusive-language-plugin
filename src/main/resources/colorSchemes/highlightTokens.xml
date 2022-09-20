@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 <list>
-    <option name="*_COMMENT">
+    <option name="ALL_HIGHLIGHT">
         <value>
-            <option name="FOREGROUND" value="98C379"/>
+            <option name="BACKGROUND" value="F4ECC2"/>
         </value>
     </option>
     <option name="?_COMMENT">

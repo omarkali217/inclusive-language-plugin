@@ -23,7 +23,7 @@ public abstract class AbstractCommentHighlighterAnnotator implements Annotator {
             List<Pair<TextRange, TextAttributesKey>> highlights = commentHighlighter.getHighlights(comment, startOffset);
 
             for (Pair<TextRange, TextAttributesKey> highlight : highlights) {
-                holder.newAnnotation(HighlightSeverity.WARNING, "comment with token detected")
+                holder.newAnnotation(HighlightSeverity.WARNING, "non-inclusive language detected")
                         .range(highlight.first)
                         .textAttributes(highlight.second)
                         .create();
