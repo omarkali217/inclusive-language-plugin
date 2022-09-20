@@ -68,7 +68,7 @@ final public class CommentHighlighter implements TokenHighlighter {
                 isHighlightedCurrentLine = true;
                 isProcessedCurrentLine = true;
                 currentLineHighlightAttribute = getHighlightTextAttribute(text.substring(i), supportedTokens);
-                var testing = "abc";
+                var test = "123";
             }
 
             // Check that line highlight was defined and no more processing needs
