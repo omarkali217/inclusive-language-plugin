@@ -19,21 +19,6 @@ List is found in `src/main/resources/inclusive.json` and follow a simple array o
     }
 ```
 
-### Default Terms List
-
-*The following terms are those being replaced.*
-
-- Blacklist
-- Whitelist
-- Coworker(s)
-- Grandfathered
-- Grooming
-- JAPA
-- Master
-- Slave
-- Sanity Check
-- Scrum Master
-
 ### Adding New Terms
 
 To add a new term, simply add another JSON object to the array in the above format. It would be recommended to include both singular and plural versions of the word (where applicable).
@@ -63,5 +48,15 @@ To add a new term, simply add another JSON object to the array in the above form
 - The cache of terms/tokens can persist even during rebuilds and may need to be deleted manually. To so, navigate to `build` > `idea-sandbox` > `config` > `options` > `HighlightTokenConfiguration.java` and delete the file.
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
+
+<!-- Plugin description -->
+This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+To add a new term, simply add another JSON object to the array in the above format. It would be recommended to include both singular and plural versions of the word (where applicable).
+
+This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+## Future Improvements
+
+To keep everything working, do not remove `<!-- ... -->` sections.
+<!-- Plugin description end -->
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
