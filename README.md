@@ -1,49 +1,26 @@
 # inclusive-language-plugin
 
-## About
+![Build](https://github.com/omarkali217/inclusive-language-plugin/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
-The inclusive language plugin is meant to help software developers and colleagues adapt to inclusive language standards within the company. It includes a pre-populated list of terms, recommended replacements and reasoning behind the standard. Custom additions can be easily added to increase functionality.  
+## Template ToDo list
+- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
+- [ ] Get familiar with the [template documentation][template].
+- [ ] Verify the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
+- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
+- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
+- [ ] Set the Plugin ID in the above README badges.
+- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
+- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
-## Terms List
+<!-- Plugin description -->
+This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
 
-List is found in `src/main/resources/inclusive.json` and follow a simple array of JSON objects. These include a term to be replaced, the recommendations of replacements (which can be a single string or array of strings), and reason for the change.
+This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
 
-```json
-{
-      "term": "Coworker",
-      "recommendations": [
-        "Colleague",
-        "Contractor"
-      ],
-      "reason": "The preferred term for the fine folks who work at Amex is \"Colleague\" (and/or \"Contractor\", as appropriate).\n"
-    }
-```
-
-### Default Terms List
-
-*The following terms are those being replaced.*
-
-- Blacklist
-- Whitelist
-- Coworker(s)
-- Grandfathered
-- Grooming
-- JAPA
-- Master
-- Slave
-- Sanity Check
-- Scrum Master
-
-### Adding New Terms
-
-To add a new term, simply add another JSON object to the array in the above format. It would be recommended to include both singular and plural versions of the word (where applicable).
-
-## Future Improvements
-
-- [ ] upper/lower-case detection: currently the plugin is case-sensitive to the terms, meaning it will not detect a lower-case term if the term is defined in `inclusive.json` as uppercase and vice-versa.
-- [ ] formatting for accessibility such various IDE color schemes, dark-mode, visual impairment accessibility, etc. 
-- [ ] quick fix click from recommendations list. This would allow the user to hover the term and see the list of replacements from which they can simply click on the desired replacement.
-
+To keep everything working, do not remove `<!-- ... -->` sections. 
+<!-- Plugin description end -->
 
 ## Installation
 
