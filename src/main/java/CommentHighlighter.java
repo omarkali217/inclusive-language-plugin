@@ -4,8 +4,10 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.TextRange;
 import org.jetbrains.annotations.NotNull;
+import Objects.QuarantineItem;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 final public class CommentHighlighter implements TokenHighlighter {
@@ -18,7 +20,9 @@ final public class CommentHighlighter implements TokenHighlighter {
     @Override
     public List<Pair<TextRange, TextAttributesKey>> getHighlights(String text, int startOffset) {
 
-        Collection<String> supportedTokens = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
+
+        Collection<QuarantineItem> quarantineItems = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
+        Collection<String> supportedTokens = quarantineItems.stream().map(n -> n.getTerm()).collect(Collectors.toList());
 
         // General comment data
         final int commentLength = text.length();

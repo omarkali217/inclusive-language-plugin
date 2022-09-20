@@ -1,3 +1,4 @@
+import Objects.QuarantineItem;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
@@ -16,7 +17,7 @@ public class KeywordHighlighter implements TokenHighlighter {
 
     @Override
     public List<Pair<TextRange, TextAttributesKey>> getHighlights(String text, int startOffset) {
-        Collection<String> supportedTokens = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
+        Collection<QuarantineItem> supportedTokens = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
 
         var textRange = new TextRange(startOffset, startOffset + text.length());
         return createHighlightsForMatchingTokens(supportedTokens, text, textRange);
@@ -25,7 +26,7 @@ public class KeywordHighlighter implements TokenHighlighter {
 
     @Override
     public List<Pair<TextRange, TextAttributesKey>> getHighlights(HighlightTokenType tokenType, String text, int startOffset) {
-        Collection<String> supportedTokens = tokenConfiguration.getAllTokensByType(tokenType);
+        Collection<QuarantineItem> supportedTokens = tokenConfiguration.getAllTokensByType(tokenType);
 
         var textRange = new TextRange(startOffset, startOffset + text.length());
         return createHighlightsForMatchingTokens(supportedTokens, text, textRange);
@@ -42,10 +43,10 @@ public class KeywordHighlighter implements TokenHighlighter {
         return List.of(HighlightTokenType.KEYWORD, HighlightTokenType.METHOD_KEYWORD);
     }
 
-    private List<Pair<TextRange, TextAttributesKey>> createHighlightsForMatchingTokens(Collection<String> supportedTokens, String text, TextRange textRange) {
+    private List<Pair<TextRange, TextAttributesKey>> createHighlightsForMatchingTokens(Collection<QuarantineItem> supportedTokens, String text, TextRange textRange) {
         return supportedTokens.stream()
-                .filter(token -> token.equalsIgnoreCase(text))
-                .map(token -> TextAttributesKey.createTextAttributesKey(getTextAttributeKeyByToken(token)))
+                .filter(token -> token.getTerm().equalsIgnoreCase(text))
+                .map(token -> TextAttributesKey.createTextAttributesKey(getTextAttributeKeyByToken(token.getTerm())))
                 .map(highlightAttribute -> Pair.create(textRange, highlightAttribute))
                 .collect(Collectors.toList());
 

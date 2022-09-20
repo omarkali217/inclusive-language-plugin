@@ -48,10 +48,10 @@ public class CommentHighlighterColorSettingsPage implements ColorSettingsPage {
     @Override
     public AttributesDescriptor[] getAttributeDescriptors() {
         Stream<AttributesDescriptor> commentColorStream = tokenConfiguration.getAllTokensByType(commentHighlighter.getSupportedTokenTypes()).stream()
-                .map(token -> createAttributeDescriptor(token, commentHighlighter));
+                .map(token -> createAttributeDescriptor(token.getTerm(), commentHighlighter));
 
         Stream<AttributesDescriptor> keywordColorStream = tokenConfiguration.getAllTokensByType(keywordHighlighter.getSupportedTokenTypes()).stream()
-                .map(token -> createAttributeDescriptor(token, keywordHighlighter));
+                .map(token -> createAttributeDescriptor(token.getTerm(), keywordHighlighter));
 
         return Stream.concat(commentColorStream, keywordColorStream).toArray(AttributesDescriptor[]::new);
     }
