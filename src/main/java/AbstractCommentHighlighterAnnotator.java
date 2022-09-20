@@ -24,7 +24,18 @@ public abstract class AbstractCommentHighlighterAnnotator implements Annotator {
             List<Pair<TextRange, TextAttributesKey>> highlights = commentHighlighter.getHighlights(comment, startOffset);
 
             for (Pair<TextRange, TextAttributesKey> highlight : highlights) {
-                holder.newAnnotation(HighlightSeverity.WARNING, "non-inclusive language detected: " + commentHighlighter.getReason())
+                String reason = commentHighlighter.getItem().getReason();
+                StringBuilder recommendation = new StringBuilder();
+                int i = 0;
+                for (String recommendedWord : commentHighlighter.getItem().getRecommendations()) {
+                    if (i != 0) {
+                        recommendation.append(", ");
+                    }
+                    recommendation.append(recommendedWord);
+                    i++;
+                }
+                recommendation.append(".");
+                holder.newAnnotation(HighlightSeverity.WARNING, "non-inclusive language detected: " + reason + "\n" + "Alternative Word Suggestion: " + recommendation.toString())
                         .range(highlight.first)
                         .textAttributes(highlight.second)
                         .create();
