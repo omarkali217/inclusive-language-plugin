@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import Objects.QuarantineItem;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,65 +23,86 @@ final public class CommentHighlighter implements TokenHighlighter {
     public List<Pair<TextRange, TextAttributesKey>> getHighlights(String text, int startOffset) {
 
 
+
         Collection<QuarantineItem> quarantineItems = tokenConfiguration.getAllTokensByType(getSupportedTokenTypes());
         Collection<String> supportedTokens = quarantineItems.stream().map(n -> n.getTerm()).collect(Collectors.toList());
 
-        // General comment data
-        final int commentLength = text.length();
-        final int lastCharPosition = text.length() - 1;
-        final boolean isDocComment = text.startsWith(DOC_COMMENT_START_LINE);
+        String termSearchRegex = ".*(?:" + String.join("|", supportedTokens) + ").*";
+        Pattern pattern = Pattern.compile(termSearchRegex);
+        Matcher matcher = pattern.matcher(text);
 
-        // Variables to process current line highlighting
-        // ? Move into separate DTO object? Will it decrease performance?
-        int currentLineStartIndex = startOffset;
-        boolean isProcessedCurrentLine = false;
-        boolean isHighlightedCurrentLine = false;
-        boolean isSkippedFirstStarCharInDocComment = false;
         TextAttributesKey currentLineHighlightAttribute = null;
 
         // Result list of pairs from which annotation would be created
         List<Pair<TextRange, TextAttributesKey>> highlightAnnotationData = new ArrayList<>();
 
-        // Code is a little bit crappy, but has better performance
-        for (int i = 0; i < commentLength; i++) {
-            char c = text.charAt(i);
-            // Reset attributes and create highlight on line end
-            if (c == '\n' || i == lastCharPosition) {
-                if (isHighlightedCurrentLine) {
-                    TextRange textRange = new TextRange(currentLineStartIndex, startOffset + i + 1);
-                    highlightAnnotationData.add(Pair.create(textRange, currentLineHighlightAttribute));
-                }
-                currentLineStartIndex = startOffset + i + 1;
-                isHighlightedCurrentLine = false;
-                isProcessedCurrentLine = false;
-                isSkippedFirstStarCharInDocComment = false;
-                continue;
-            }
+        int currentLineStartIndex = startOffset;
+        final int lastCharPosition = text.length() - 1;
 
-            // Skip processing of current char in line if highlight was already defined
-            if (isProcessedCurrentLine) {
-                continue;
-            }
-
-            // Skip processing of first "*" in doc comments
-            if (!isSkippedFirstStarCharInDocComment && shouldSkipFistStarInDocComment(c, isDocComment)) {
-                isSkippedFirstStarCharInDocComment = true;
-                continue;
-            }
-
-            // Create highlight if current char is valid highlight char
-            if (isValidPosition(text, i) && isHighlightTriggerChar(c, supportedTokens) && containsHighlightToken(text.substring(i), supportedTokens)) {
-                isHighlightedCurrentLine = true;
-                isProcessedCurrentLine = true;
-                currentLineHighlightAttribute = getHighlightTextAttribute(text.substring(i), supportedTokens);
-                var test = "123";
-            }
-
-            // Check that line highlight was defined and no more processing needs
-            if (!isValidStartLineChar(c)) {
-                isProcessedCurrentLine = true;
-            }
+        if (matcher.find()) {
+            currentLineHighlightAttribute = TextAttributesKey.createTextAttributesKey("ALL_HIGHLIGHT");
+            //currentLineHighlightAttribute = getHighlightTextAttribute(matcher.group(0), supportedTokens);
+            TextRange textRange = new TextRange(currentLineStartIndex, startOffset + lastCharPosition + 1);
+            highlightAnnotationData.add(Pair.create(textRange, currentLineHighlightAttribute));
         }
+
+        // General comment data
+//        final int commentLength = text.length();
+
+//        final boolean isDocComment = text.startsWith(DOC_COMMENT_START_LINE);
+
+
+        // Variables to process current line highlighting
+        // ? Move into separate DTO object? Will it decrease performance?
+
+//        boolean isProcessedCurrentLine = false;
+//        boolean isHighlightedCurrentLine = false;
+//        boolean isSkippedFirstStarCharInDocComment = false;
+
+
+
+
+
+
+        // Code is a little bit crappy, but has better performance
+//        for (int i = 0; i < commentLength; i++) {
+//            char c = text.charAt(i);
+//            // Reset attributes and create highlight on line end
+//            if (c == '\n' || i == lastCharPosition) {
+//                if (isHighlightedCurrentLine) {
+//
+//                }
+//                currentLineStartIndex = startOffset + i + 1;
+//                isHighlightedCurrentLine = false;
+//                isProcessedCurrentLine = false;
+//                isSkippedFirstStarCharInDocComment = false;
+//                continue;
+//            }
+//
+//            // Skip processing of current char in line if highlight was already defined
+//            if (isProcessedCurrentLine) {
+//                continue;
+//            }
+//
+//            // Skip processing of first "*" in doc comments
+//            if (!isSkippedFirstStarCharInDocComment && shouldSkipFistStarInDocComment(c, isDocComment)) {
+//                isSkippedFirstStarCharInDocComment = true;
+//                continue;
+//            }
+//
+//            // Create highlight if current char is valid highlight char
+//            if (isValidPosition(text, i) && isHighlightTriggerChar(c, supportedTokens) && containsHighlightToken(text.substring(i), supportedTokens)) {
+//                isHighlightedCurrentLine = true;
+//                isProcessedCurrentLine = true;
+//                currentLineHighlightAttribute = getHighlightTextAttribute(text.substring(i), supportedTokens);
+//                var test = "123";
+//            }
+//
+//            // Check that line highlight was defined and no more processing needs
+//            if (!isValidStartLineChar(c)) {
+//                isProcessedCurrentLine = true;
+//            }
+//        }
         return highlightAnnotationData;
     }
 
@@ -137,20 +160,20 @@ final public class CommentHighlighter implements TokenHighlighter {
     }
 
 
-    private TextAttributesKey getHighlightTextAttribute(String commentSubstring, Collection<String> supportedTokens) {
-        for (String token : supportedTokens) {
-            if (commentSubstring.startsWith(token)) {
-                return TextAttributesKey.createTextAttributesKey(getTextAttributeKeyByToken(token));
-            }
-        }
-        return null;
-    }
+//    private TextAttributesKey getHighlightTextAttribute(String commentSubstring, Collection<String> supportedTokens) {
+//        for (String token : supportedTokens) {
+//            if (commentSubstring.startsWith(token)) {
+//                return ;
+//            }
+//        }
+//        return null;
+//    }
 
-    @NotNull
-    @Override
-    public String getTextAttributeKeyByToken(String token) {
-        return token + "_COMMENT";
-    }
+//    @NotNull
+//    @Override
+//    public String getTextAttributeKeyByToken(String token) {
+//        return token + "_COMMENT";
+//    }
 
     @Override
     public List<HighlightTokenType> getSupportedTokenTypes() {

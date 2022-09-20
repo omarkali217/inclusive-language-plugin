@@ -33,7 +33,6 @@ public class KeywordHighlighter implements TokenHighlighter {
     }
 
     @NotNull
-    @Override
     public String getTextAttributeKeyByToken(String token) {
         return token + "_KEYWORD";
     }
