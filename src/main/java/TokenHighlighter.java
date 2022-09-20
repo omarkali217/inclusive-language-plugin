@@ -17,8 +17,8 @@ public interface TokenHighlighter {
         return Collections.emptyList();
     }
 
-    @NotNull
-    String getTextAttributeKeyByToken(String token);
+//    @NotNull
+//    String getTextAttributeKeyByToken(String token);
 
     List<HighlightTokenType> getSupportedTokenTypes();
 }
