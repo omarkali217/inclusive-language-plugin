@@ -35,6 +35,9 @@ To keep everything working, do not remove `<!-- ... -->` sections.
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
+## Troubleshooting
+
+- The cache of terms/tokens can persist even during rebuilds and may need to be deleted manually. To so, navigate to `build` > `idea-sandbox` > `config` > `options` > `HighlightTokenConfiguration.java` and delete the file.
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
